@@ -1,0 +1,710 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "0.1.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {}
+  },
+  "paths": {
+    "/notification-svc/api/v1/analytics/": {
+      "get": {
+        "summary": "Analytics of the services",
+        "tags": ["Analytics"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "startDate",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "endDate",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "projectId",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/analytics/logs": {
+      "get": {
+        "summary": "Track the notificaion status with requestId",
+        "tags": ["Logs"],
+        "parameters": [
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": ["EMAIL"]
+                },
+                {
+                  "type": "string",
+                  "enum": ["SMS"]
+                },
+                {
+                  "type": "string",
+                  "enum": ["PUSH_NOTIFICATION"]
+                },
+                {
+                  "type": "string",
+                  "enum": ["WHATSAPP"]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "serviceType",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": ["SUCCESS"]
+                },
+                {
+                  "type": "string",
+                  "enum": ["FAILURE"]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "status",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": ["low"]
+                },
+                {
+                  "type": "string",
+                  "enum": ["high"]
+                },
+                {
+                  "type": "string",
+                  "enum": ["medium"]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "priority",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "requestId",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "Date"
+            },
+            "in": "query",
+            "name": "date",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "page",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "limit",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "totalPages",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "organizationId",
+            "required": false
+          },
+          {
+            "schema": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "type": "string",
+                      "enum": ["SES"]
+                    },
+                    {
+                      "type": "string",
+                      "enum": ["NODEMAILER"]
+                    }
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": ["INFOBIP"]
+                }
+              ]
+            },
+            "in": "query",
+            "name": "provider",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "startDate",
+            "required": false
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "endDate",
+            "required": false
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/send-email/": {
+      "post": {
+        "summary": "Email",
+        "tags": ["Send Email"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "to": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "subject": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "from": {
+                    "type": "string"
+                  },
+                  "cc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "bcc": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "replyTo": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "html": {
+                    "type": "string"
+                  },
+                  "attachments": {
+                    "type": "object",
+                    "properties": {
+                      "contentType": {
+                        "type": "string"
+                      },
+                      "filename": {
+                        "type": "string"
+                      },
+                      "content": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["contentType", "filename", "content"]
+                  },
+                  "priority": {
+                    "enum": ["low", "high", "medium"],
+                    "type": "string"
+                  }
+                },
+                "required": ["to", "subject", "text", "priority"]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "secret-key",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "access-key",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/health-check/": {
+      "get": {
+        "summary": "Health check api ",
+        "tags": ["Health check"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/send-sms/": {
+      "post": {
+        "summary": "SMS",
+        "tags": ["Send SMS"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "otp": {
+                    "type": "string"
+                  },
+                  "productName": {
+                    "type": "string"
+                  },
+                  "priority": {
+                    "enum": ["low", "high", "medium"],
+                    "type": "string"
+                  }
+                },
+                "required": ["phoneNumber", "otp", "productName", "priority"]
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "secret-key",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "access-key",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/config/project/": {
+      "post": {
+        "summary": "Create Project",
+        "tags": ["Project"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "organizationId": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "emailServiceProviders": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": ["SES"]
+                        },
+                        {
+                          "type": "string",
+                          "enum": ["NODEMAILER"]
+                        }
+                      ]
+                    }
+                  },
+                  "smsServiceProviders": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["INFOBIP"]
+                    }
+                  }
+                },
+                "required": ["name", "organizationId"]
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/config/project/{projectId}": {
+      "put": {
+        "summary": "Update Project",
+        "tags": ["Project"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "organizationId": {
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "emailServiceProviders": {
+                    "type": "array",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "type": "string",
+                          "enum": ["SES"]
+                        },
+                        {
+                          "type": "string",
+                          "enum": ["NODEMAILER"]
+                        }
+                      ]
+                    }
+                  },
+                  "smsServiceProviders": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "enum": ["INFOBIP"]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "projectId",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/config/project/{organizationId}": {
+      "get": {
+        "summary": "List of Project under organization",
+        "tags": ["Project"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "projectId",
+            "required": false
+          },
+          {
+            "schema": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "in": "path",
+            "name": "organizationId",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/config/service-provider/": {
+      "post": {
+        "summary": "Create Service Provider",
+        "tags": ["Service Provider"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "serviceProviders": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "serviceType": {
+                          "enum": [
+                            "EMAIL",
+                            "SMS",
+                            "PUSH_NOTIFICATION",
+                            "WHATSAPP"
+                          ],
+                          "type": "string"
+                        },
+                        "providerName": {
+                          "anyOf": [
+                            {
+                              "anyOf": [
+                                {
+                                  "type": "string",
+                                  "enum": ["SES"]
+                                },
+                                {
+                                  "type": "string",
+                                  "enum": ["NODEMAILER"]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["INFOBIP"]
+                            }
+                          ]
+                        }
+                      },
+                      "required": ["serviceType", "providerName"]
+                    }
+                  }
+                },
+                "required": ["serviceProviders"]
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "get": {
+        "summary": "List of Service Provider",
+        "tags": ["Service Provider"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/notification-svc/api/v1/config/organization/": {
+      "post": {
+        "summary": "Create Organization",
+        "tags": ["Organization"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": ["name"]
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "get": {
+        "summary": "List of Organization",
+        "tags": ["Organization"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "http://0.0.0.0:5100"
+    }
+  ]
+}
