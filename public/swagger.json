@@ -1,702 +1,2897 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "",
+    "title": "Caybia svc",
     "description": "",
     "version": "0.1.0"
   },
   "components": {
     "securitySchemes": {
       "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer"
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
       }
     },
     "schemas": {}
   },
   "paths": {
-    "/notification-svc/api/v1/analytics/": {
-      "get": {
-        "summary": "Analytics of the services",
-        "tags": ["Analytics"],
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "startDate",
-            "required": false
+    "/caybia/api/v1/admin/signup": {
+      "post": {
+        "tags": ["admin"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "countryCode": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fullName",
+                  "email",
+                  "phoneNumber",
+                  "countryCode",
+                  "country",
+                  "password"
+                ]
+              }
+            }
           },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "endDate",
-            "required": false
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "adminId": {
+                          "type": "string"
+                        },
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phoneNumber": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": ["ADMIN"]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["SUB_ADMIN"]
+                            }
+                          ]
+                        },
+                        "createdBy": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "referralCode": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "fullName",
+                        "email",
+                        "phoneNumber",
+                        "countryCode",
+                        "country",
+                        "role"
+                      ]
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
           },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "projectId",
-            "required": false
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
           }
-        ],
+        }
+      }
+    },
+    "/caybia/api/v1/admin/sub-admin": {
+      "post": {
+        "tags": ["admin"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fullName": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phoneNumber": {
+                    "type": "string"
+                  },
+                  "countryCode": {
+                    "type": "string"
+                  },
+                  "country": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "fullName",
+                  "email",
+                  "phoneNumber",
+                  "countryCode",
+                  "country",
+                  "password"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "responses": {
-          "200": {
-            "description": "Default Response"
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "adminId": {
+                          "type": "string"
+                        },
+                        "fullName": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "phoneNumber": {
+                          "type": "string"
+                        },
+                        "countryCode": {
+                          "type": "string"
+                        },
+                        "country": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": ["ADMIN"]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["SUB_ADMIN"]
+                            }
+                          ]
+                        },
+                        "createdBy": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "referralCode": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "fullName",
+                        "email",
+                        "phoneNumber",
+                        "countryCode",
+                        "country",
+                        "role"
+                      ]
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
-    "/notification-svc/api/v1/analytics/logs": {
+    "/caybia/api/v1/search/": {
       "get": {
-        "summary": "Track the notificaion status with requestId",
-        "tags": ["Logs"],
+        "tags": ["search"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "productName",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "categoryName",
+            "required": true
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "query",
+            "name": "searchText",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "advertismentId": {
+                            "type": "string"
+                          },
+                          "productName": {
+                            "type": "string"
+                          },
+                          "productDescription": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "number"
+                          },
+                          "categoryName": {
+                            "type": "string"
+                          },
+                          "categoryId": {
+                            "type": "string"
+                          },
+                          "subcategoryName": {
+                            "type": "string"
+                          },
+                          "subcategoryId": {
+                            "type": "string"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "createdBy": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["ACTIVE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["DELETED"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["BLOCKED"]
+                              }
+                            ]
+                          },
+                          "inventoryDetails": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["AVAILABLE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["SOLD"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["UNLIST"]
+                              }
+                            ]
+                          },
+                          "productDetails": {}
+                        },
+                        "required": [
+                          "advertismentId",
+                          "productName",
+                          "productDescription",
+                          "views",
+                          "categoryName",
+                          "categoryId",
+                          "subcategoryName",
+                          "subcategoryId",
+                          "images",
+                          "city",
+                          "zip",
+                          "address",
+                          "createdBy",
+                          "status",
+                          "inventoryDetails",
+                          "productDetails"
+                        ]
+                      }
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/search/{id}": {
+      "get": {
+        "tags": ["search"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "advertismentId": {
+                          "type": "string"
+                        },
+                        "productName": {
+                          "type": "string"
+                        },
+                        "productDescription": {
+                          "type": "string"
+                        },
+                        "views": {
+                          "type": "number"
+                        },
+                        "categoryName": {
+                          "type": "string"
+                        },
+                        "categoryId": {
+                          "type": "string"
+                        },
+                        "subcategoryName": {
+                          "type": "string"
+                        },
+                        "subcategoryId": {
+                          "type": "string"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "zip": {
+                          "type": "string"
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "createdBy": {
+                          "type": "string"
+                        },
+                        "status": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": ["ACTIVE"]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["DELETED"]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["BLOCKED"]
+                            }
+                          ]
+                        },
+                        "inventoryDetails": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "enum": ["AVAILABLE"]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["SOLD"]
+                            },
+                            {
+                              "type": "string",
+                              "enum": ["UNLIST"]
+                            }
+                          ]
+                        },
+                        "productDetails": {}
+                      },
+                      "required": [
+                        "advertismentId",
+                        "productName",
+                        "productDescription",
+                        "views",
+                        "categoryName",
+                        "categoryId",
+                        "subcategoryName",
+                        "subcategoryId",
+                        "images",
+                        "city",
+                        "zip",
+                        "address",
+                        "createdBy",
+                        "status",
+                        "inventoryDetails",
+                        "productDetails"
+                      ]
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/auth/admin/login": {
+      "post": {
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["token"]
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/auth/user/login": {
+      "post": {
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["token"]
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/auth/user/signup": {
+      "post": {
+        "tags": ["auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "allOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["email", "password"]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "referralCode": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["referralCode"]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["token"]
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/master/category": {
+      "post": {
+        "tags": ["master"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "categoryId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  }
+                },
+                "required": ["categoryId", "name", "icon"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "timestamp"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/master/subcategory": {
+      "post": {
+        "tags": ["master"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subcategoryId": {
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "icon": {
+                    "type": "string"
+                  }
+                },
+                "required": ["subcategoryId", "categoryId", "name", "icon"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "timestamp"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/master/categories": {
+      "get": {
+        "tags": ["master"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "categoriesId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "subcategoryId": {
+                            "type": "string"
+                          },
+                          "categoryId": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "subcategoryId",
+                          "categoryId",
+                          "name",
+                          "icon"
+                        ]
+                      }
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/master/subcatagories/{catagoriesId}": {
+      "get": {
+        "tags": ["master"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "categoriesId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "subcategoryId": {
+                            "type": "string"
+                          },
+                          "categoryId": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "icon": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "subcategoryId",
+                          "categoryId",
+                          "name",
+                          "icon"
+                        ]
+                      }
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/advertisment/advertisment": {
+      "post": {
+        "tags": ["advertisment"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "productName": {
+                    "type": "string"
+                  },
+                  "productDescription": {
+                    "type": "string"
+                  },
+                  "categoryName": {
+                    "type": "string"
+                  },
+                  "categoryId": {
+                    "type": "string"
+                  },
+                  "subcategoryName": {
+                    "type": "string"
+                  },
+                  "subcategoryId": {
+                    "type": "string"
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "zip": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": ["ACTIVE"]
+                      },
+                      {
+                        "type": "string",
+                        "enum": ["DELETED"]
+                      },
+                      {
+                        "type": "string",
+                        "enum": ["BLOCKED"]
+                      }
+                    ]
+                  },
+                  "inventoryDetails": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": ["AVAILABLE"]
+                      },
+                      {
+                        "type": "string",
+                        "enum": ["SOLD"]
+                      },
+                      {
+                        "type": "string",
+                        "enum": ["UNLIST"]
+                      }
+                    ]
+                  },
+                  "productDetails": {}
+                },
+                "required": [
+                  "productName",
+                  "productDescription",
+                  "categoryName",
+                  "categoryId",
+                  "subcategoryName",
+                  "subcategoryId",
+                  "images",
+                  "city",
+                  "zip",
+                  "address",
+                  "status",
+                  "inventoryDetails",
+                  "productDetails"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "timestamp"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/advertisment/advertisment/{id}/inventoryDetails": {
+      "patch": {
+        "tags": ["advertisment"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inventoryDetails": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "enum": ["AVAILABLE"]
+                      },
+                      {
+                        "type": "string",
+                        "enum": ["SOLD"]
+                      },
+                      {
+                        "type": "string",
+                        "enum": ["UNLIST"]
+                      }
+                    ]
+                  }
+                },
+                "required": ["inventoryDetails"]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "timestamp"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/advertisment/advertisment/{id}": {
+      "delete": {
+        "tags": ["advertisment"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "advertismentId": {
+                            "type": "string"
+                          },
+                          "productName": {
+                            "type": "string"
+                          },
+                          "productDescription": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "number"
+                          },
+                          "categoryName": {
+                            "type": "string"
+                          },
+                          "categoryId": {
+                            "type": "string"
+                          },
+                          "subcategoryName": {
+                            "type": "string"
+                          },
+                          "subcategoryId": {
+                            "type": "string"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "createdBy": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["ACTIVE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["DELETED"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["BLOCKED"]
+                              }
+                            ]
+                          },
+                          "inventoryDetails": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["AVAILABLE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["SOLD"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["UNLIST"]
+                              }
+                            ]
+                          },
+                          "productDetails": {}
+                        },
+                        "required": [
+                          "advertismentId",
+                          "productName",
+                          "productDescription",
+                          "views",
+                          "categoryName",
+                          "categoryId",
+                          "subcategoryName",
+                          "subcategoryId",
+                          "images",
+                          "city",
+                          "zip",
+                          "address",
+                          "createdBy",
+                          "status",
+                          "inventoryDetails",
+                          "productDetails"
+                        ]
+                      }
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/advertisment/published": {
+      "get": {
+        "tags": ["advertisment"],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "advertismentId": {
+                            "type": "string"
+                          },
+                          "productName": {
+                            "type": "string"
+                          },
+                          "productDescription": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "number"
+                          },
+                          "categoryName": {
+                            "type": "string"
+                          },
+                          "categoryId": {
+                            "type": "string"
+                          },
+                          "subcategoryName": {
+                            "type": "string"
+                          },
+                          "subcategoryId": {
+                            "type": "string"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "createdBy": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["ACTIVE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["DELETED"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["BLOCKED"]
+                              }
+                            ]
+                          },
+                          "inventoryDetails": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["AVAILABLE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["SOLD"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["UNLIST"]
+                              }
+                            ]
+                          },
+                          "productDetails": {}
+                        },
+                        "required": [
+                          "advertismentId",
+                          "productName",
+                          "productDescription",
+                          "views",
+                          "categoryName",
+                          "categoryId",
+                          "subcategoryName",
+                          "subcategoryId",
+                          "images",
+                          "city",
+                          "zip",
+                          "address",
+                          "createdBy",
+                          "status",
+                          "inventoryDetails",
+                          "productDetails"
+                        ]
+                      }
+                    }
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/caybia/api/v1/advertisment/admin/advertisments": {
+      "get": {
+        "tags": ["advertisment"],
         "parameters": [
           {
             "schema": {
               "anyOf": [
                 {
                   "type": "string",
-                  "enum": ["EMAIL"]
+                  "enum": ["ACTIVE"]
                 },
                 {
                   "type": "string",
-                  "enum": ["SMS"]
+                  "enum": ["DELETED"]
                 },
                 {
                   "type": "string",
-                  "enum": ["PUSH_NOTIFICATION"]
-                },
-                {
-                  "type": "string",
-                  "enum": ["WHATSAPP"]
-                }
-              ]
-            },
-            "in": "query",
-            "name": "serviceType",
-            "required": false
-          },
-          {
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "enum": ["SUCCESS"]
-                },
-                {
-                  "type": "string",
-                  "enum": ["FAILURE"]
+                  "enum": ["BLOCKED"]
                 }
               ]
             },
             "in": "query",
             "name": "status",
-            "required": false
-          },
-          {
-            "schema": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "enum": ["low"]
-                },
-                {
-                  "type": "string",
-                  "enum": ["high"]
-                },
-                {
-                  "type": "string",
-                  "enum": ["medium"]
-                }
-              ]
-            },
-            "in": "query",
-            "name": "priority",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "requestId",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "Date"
-            },
-            "in": "query",
-            "name": "date",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "page",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "limit",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "totalPages",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "organizationId",
-            "required": false
-          },
-          {
-            "schema": {
-              "anyOf": [
-                {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "enum": ["SES"]
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
                     },
-                    {
-                      "type": "string",
-                      "enum": ["NODEMAILER"]
-                    }
-                  ]
-                },
-                {
-                  "type": "string",
-                  "enum": ["INFOBIP"]
-                }
-              ]
-            },
-            "in": "query",
-            "name": "provider",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "startDate",
-            "required": false
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "endDate",
-            "required": false
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/send-email/": {
-      "post": {
-        "summary": "Email",
-        "tags": ["Send Email"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "to": {
-                    "type": "array",
-                    "items": {
+                    "message": {
                       "type": "string"
-                    }
-                  },
-                  "subject": {
-                    "type": "string"
-                  },
-                  "text": {
-                    "type": "string"
-                  },
-                  "from": {
-                    "type": "string"
-                  },
-                  "cc": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "bcc": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "replyTo": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "html": {
-                    "type": "string"
-                  },
-                  "attachments": {
-                    "type": "object",
-                    "properties": {
-                      "contentType": {
-                        "type": "string"
-                      },
-                      "filename": {
-                        "type": "string"
-                      },
-                      "content": {
-                        "type": "string"
-                      }
                     },
-                    "required": ["contentType", "filename", "content"]
-                  },
-                  "priority": {
-                    "enum": ["low", "high", "medium"],
-                    "type": "string"
-                  }
-                },
-                "required": ["to", "subject", "text", "priority"]
-              }
-            }
-          },
-          "required": true
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "name": "secret-key",
-            "required": true
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "name": "access-key",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/health-check/": {
-      "get": {
-        "summary": "Health check api ",
-        "tags": ["Health check"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/send-sms/": {
-      "post": {
-        "summary": "SMS",
-        "tags": ["Send SMS"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "phoneNumber": {
-                    "type": "string"
-                  },
-                  "otp": {
-                    "type": "string"
-                  },
-                  "productName": {
-                    "type": "string"
-                  },
-                  "priority": {
-                    "enum": ["low", "high", "medium"],
-                    "type": "string"
-                  }
-                },
-                "required": ["phoneNumber", "otp", "productName", "priority"]
-              }
-            }
-          },
-          "required": true
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "name": "secret-key",
-            "required": true
-          },
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "name": "access-key",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/config/project/": {
-      "post": {
-        "summary": "Create Project",
-        "tags": ["Project"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  "organizationId": {
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "emailServiceProviders": {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "string",
-                          "enum": ["SES"]
-                        },
-                        {
-                          "type": "string",
-                          "enum": ["NODEMAILER"]
-                        }
-                      ]
-                    }
-                  },
-                  "smsServiceProviders": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "enum": ["INFOBIP"]
-                    }
-                  }
-                },
-                "required": ["name", "organizationId"]
-              }
-            }
-          },
-          "required": true
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/config/project/{projectId}": {
-      "put": {
-        "summary": "Update Project",
-        "tags": ["Project"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  "organizationId": {
-                    "minLength": 1,
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "emailServiceProviders": {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "string",
-                          "enum": ["SES"]
-                        },
-                        {
-                          "type": "string",
-                          "enum": ["NODEMAILER"]
-                        }
-                      ]
-                    }
-                  },
-                  "smsServiceProviders": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "enum": ["INFOBIP"]
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "schema": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "in": "path",
-            "name": "projectId",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/config/project/{organizationId}": {
-      "get": {
-        "summary": "List of Project under organization",
-        "tags": ["Project"],
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "query",
-            "name": "projectId",
-            "required": false
-          },
-          {
-            "schema": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "in": "path",
-            "name": "organizationId",
-            "required": true
-          }
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    },
-    "/notification-svc/api/v1/config/service-provider/": {
-      "post": {
-        "summary": "Create Service Provider",
-        "tags": ["Service Provider"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "serviceProviders": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "serviceType": {
-                          "enum": [
-                            "EMAIL",
-                            "SMS",
-                            "PUSH_NOTIFICATION",
-                            "WHATSAPP"
-                          ],
-                          "type": "string"
-                        },
-                        "providerName": {
-                          "anyOf": [
-                            {
-                              "anyOf": [
-                                {
-                                  "type": "string",
-                                  "enum": ["SES"]
-                                },
-                                {
-                                  "type": "string",
-                                  "enum": ["NODEMAILER"]
-                                }
-                              ]
-                            },
-                            {
-                              "type": "string",
-                              "enum": ["INFOBIP"]
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "advertismentId": {
+                            "type": "string"
+                          },
+                          "productName": {
+                            "type": "string"
+                          },
+                          "productDescription": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "number"
+                          },
+                          "categoryName": {
+                            "type": "string"
+                          },
+                          "categoryId": {
+                            "type": "string"
+                          },
+                          "subcategoryName": {
+                            "type": "string"
+                          },
+                          "subcategoryId": {
+                            "type": "string"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
                             }
-                          ]
-                        }
-                      },
-                      "required": ["serviceType", "providerName"]
+                          },
+                          "city": {
+                            "type": "string"
+                          },
+                          "zip": {
+                            "type": "string"
+                          },
+                          "address": {
+                            "type": "string"
+                          },
+                          "createdBy": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["ACTIVE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["DELETED"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["BLOCKED"]
+                              }
+                            ]
+                          },
+                          "inventoryDetails": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "enum": ["AVAILABLE"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["SOLD"]
+                              },
+                              {
+                                "type": "string",
+                                "enum": ["UNLIST"]
+                              }
+                            ]
+                          },
+                          "productDetails": {}
+                        },
+                        "required": [
+                          "advertismentId",
+                          "productName",
+                          "productDescription",
+                          "views",
+                          "categoryName",
+                          "categoryId",
+                          "subcategoryName",
+                          "subcategoryId",
+                          "images",
+                          "city",
+                          "zip",
+                          "address",
+                          "createdBy",
+                          "status",
+                          "inventoryDetails",
+                          "productDetails"
+                        ]
+                      }
                     }
-                  }
-                },
-                "required": ["serviceProviders"]
+                  },
+                  "required": ["message", "timestamp", "data"]
+                }
               }
             }
           },
-          "required": true
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      },
-      "get": {
-        "summary": "List of Service Provider",
-        "tags": ["Service Provider"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
-    "/notification-svc/api/v1/config/organization/": {
+    "/caybia/api/v1/advertisment/admin/block/{advertismentId}": {
       "post": {
-        "summary": "Create Organization",
-        "tags": ["Organization"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "minLength": 1,
-                    "type": "string"
-                  }
-                },
-                "required": ["name"]
+        "tags": ["advertisment"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "path",
+            "name": "advertismentId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["message", "timestamp"]
+                }
               }
             }
           },
-          "required": true
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      },
-      "get": {
-        "summary": "List of Organization",
-        "tags": ["Organization"],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Default Response"
+          "400": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Default Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "timestamp": {
+                      "type": "string"
+                    },
+                    "errorSource": {
+                      "type": "string"
+                    },
+                    "errors": {}
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -704,7 +2899,7 @@
   },
   "servers": [
     {
-      "url": "http://0.0.0.0:5100"
+      "url": "http://localhost:4700"
     }
   ]
 }
