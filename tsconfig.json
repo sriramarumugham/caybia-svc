@@ -1,0 +1,25 @@
+{
+  "extends": "fastify-tsconfig",
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+    "rootDir": "src",
+    "skipLibCheck": true,
+    "types": [],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "dist", // Exclude output directory
+    "**/*.spec.ts" // Exclude test files if necessary
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
