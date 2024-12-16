@@ -6,7 +6,7 @@ export default fp(async (fastify) => {
   fastify.register(swagger, {
     openapi: {
       info: {
-        title: 'Caybia svc',
+        title: 'SVC',
         description: '',
         version: '0.1.0',
       },
